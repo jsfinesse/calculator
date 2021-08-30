@@ -90,6 +90,7 @@ allClear.addEventListener("click", function() {
     currOperator = '';
     calcDisplay.textContent = '';
     isOperatorUsedOnce = false;
+    calcDisplay.textContent = "0";
 });
 
 clear.addEventListener("click", function() {
