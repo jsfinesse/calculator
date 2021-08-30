@@ -1,31 +1,38 @@
 function add(a, b)
 {
-    return (a+b);
+    return (a+b).toFixed(2);
 }
 
 function subtract(a, b)
 {
-    return (a-b);
+    return (a-b).toFixed(2);
 }
 
 function multiply(a, b)
 {
-    return (a*b);
+    return (a*b).toFixed(2);
 }
 
 function divide(a, b)
 {
-    if(b===0) { alert("Cannot divide by 0!!!"); return;}
-    return (a/b);
+    if(b===0) { alert("Nice try but I'm immune!!!"); return; }
+    return (a/b).toFixed(2);
+}
+
+function remainder(a, b)
+{
+    if(b===0) { alert("Nice try but I'm immune!!!"); return; }
+    return (a%b).toFixed(2);
 }
 
 function operate(operation, num1, num2)
 {
     switch(operation) {
-        case '+': return (add(parseInt(num1), parseInt(num2))); break;
-        case '-': return (subtract(parseInt(num1), parseInt(num2))); break;
-        case '*': return (multiply(parseInt(num1), parseInt(num2))); break;
-        case '/': return (divide(parseInt(num1), parseInt(num2))); break;
+        case '+': return (add(+num1, +num2)); break;
+        case '-': return (subtract(+num1, +num2)); break;
+        case '*': return (multiply(+num1, +num2)); break;
+        case '/': return (divide(+num1, +num2)); break;
+        case '%': return (remainder(+num1, +num2)); break;
         default: console.log("unindentified operation");
     }
 }
@@ -68,7 +75,10 @@ operationKeys.forEach(button => {
 });
 
 equalkey.addEventListener("click", function() {
-    let result = operate(currOperator, prevDigit, currentDigit); 
+    if(currentDigit === '' || currOperator === '' || prevDigit === '') return;
+    let result = operate(currOperator, prevDigit, currentDigit);
+    result = result.toString();
+    if(result.toString().slice(-2) === "00") { result = result.slice(0, -3);}
     calcDisplay.textContent = String(result);
     prevDigit = result;
     currentDigit = '';
@@ -79,6 +89,7 @@ allClear.addEventListener("click", function() {
     prevDigit = '';
     currOperator = '';
     calcDisplay.textContent = '';
+    isOperatorUsedOnce = false;
 });
 
 clear.addEventListener("click", function() {
