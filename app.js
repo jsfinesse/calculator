@@ -48,6 +48,7 @@ const calcDisplay = document.querySelector(".display");
 let currentDigit = '';
 let prevDigit = '';
 let currOperator = '';
+let prevOperator = '';
 let equation = '';
 
 let isOperatorUsedOnce = false;
@@ -69,13 +70,22 @@ operationKeys.forEach(button => {
         if(!isOperatorUsedOnce) {
             prevDigit = currentDigit;
         }
+        else {
+            if(currentDigit === '' || prevOperator === '' || prevDigit === '') return;
+            let result = operate(prevOperator, prevDigit, currentDigit);
+            result = result.toString();
+            if(result.toString().slice(-2) === "00") { result = result.slice(0, -3);}
+            calcDisplay.textContent = String(result);
+            prevDigit = result;
+        }
         isOperatorUsedOnce = true;
         currentDigit = '';
+        prevOperator = currOperator;
     })
 });
 
 equalkey.addEventListener("click", function() {
-    if(currentDigit === '' || currOperator === '' || prevDigit === '') return;
+    if(currentDigit === '' || prevOperator === '' || prevDigit === '') return;
     let result = operate(currOperator, prevDigit, currentDigit);
     result = result.toString();
     if(result.toString().slice(-2) === "00") { result = result.slice(0, -3);}
