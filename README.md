@@ -1,3 +1,3 @@
 Javascript Calculator
 
-Live Preview - https://theashenone7.github.io/calculator/
+Live Preview - https://jsfinesse.github.io/calculator/
